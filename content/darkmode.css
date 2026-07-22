@@ -4,39 +4,30 @@
   color-scheme: dark !important;
 }
 
-/* Base Root Darkening */
-html[data-dark-vision="enabled"] {
+/* Base Root & Body Darkening */
+html[data-dark-vision="enabled"],
+html[data-dark-vision="enabled"] body {
   background-color: var(--dv-bg-main, #121826) !important;
   color: var(--dv-text-main, #e2e8f0) !important;
   filter: brightness(var(--dv-brightness, 100%)) contrast(var(--dv-contrast, 100%)) sepia(var(--dv-sepia, 0%)) !important;
   transition: filter 0.15s ease, background-color 0.15s ease !important;
 }
 
-/* Universal Page Elements */
-html[data-dark-vision="enabled"] body,
-html[data-dark-vision="enabled"] div,
-html[data-dark-vision="enabled"] section,
-html[data-dark-vision="enabled"] article,
-html[data-dark-vision="enabled"] main,
-html[data-dark-vision="enabled"] header,
-html[data-dark-vision="enabled"] footer,
-html[data-dark-vision="enabled"] nav,
-html[data-dark-vision="enabled"] aside {
-  background-color: transparent;
-  color: inherit;
-}
-
-/* Default Background Overrides for Solid Light Containers */
-html[data-dark-vision="enabled"] :is(body, section, article, main, header, footer, nav, aside, div, table, tr, td, th, ul, ol, li) {
+/* Force Dark Backgrounds on All Containers, Divisions, Sections & Tables */
+html[data-dark-vision="enabled"] :is(body, section, article, main, header, footer, nav, aside, div, table, tbody, tr, td, th, ul, ol, li, form, center, header, nav) {
+  background-color: var(--dv-bg-main, #121826) !important;
+  color: var(--dv-text-main, #e2e8f0) !important;
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
-/* Text and Links */
-html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i) {
+/* Universal Text & Headings Recolor */
+html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i, small, dt, dd, summary) {
   color: var(--dv-text-main, #e2e8f0) !important;
 }
 
-html[data-dark-vision="enabled"] a {
+/* Links */
+html[data-dark-vision="enabled"] a,
+html[data-dark-vision="enabled"] a * {
   color: var(--dv-link-color, #60a5fa) !important;
 }
 
@@ -44,8 +35,8 @@ html[data-dark-vision="enabled"] a:visited {
   color: var(--dv-link-visited, #a78bfa) !important;
 }
 
-/* Cards, Modals, Popups, and Containers */
-html[data-dark-vision="enabled"] :is(.card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel, [role="dialog"], [role="menu"]) {
+/* Cards, Modals, Popups, Dropdowns & Sidebars */
+html[data-dark-vision="enabled"] :is(.card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel, [role="dialog"], [role="menu"], [class*="card"], [class*="modal"], [class*="popup"], [class*="menu"], [class*="panel"], [class*="sidebar"], [class*="drawer"]) {
   background-color: var(--dv-bg-card, #1e293b) !important;
   color: var(--dv-text-main, #e2e8f0) !important;
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
@@ -64,17 +55,13 @@ html[data-dark-vision="enabled"] :is(input, textarea):focus {
   outline: 2px solid var(--dv-accent-glow, rgba(59, 130, 246, 0.4)) !important;
 }
 
-html[data-dark-vision="enabled"] button {
-  cursor: pointer;
-}
-
 /* Media Protections - Ensure Images, Videos, Canvas & SVG are NOT ruined */
 html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, svg, picture, embed, object) {
   filter: brightness(var(--dv-media-brightness, 95%)) contrast(var(--dv-media-contrast, 100%)) !important;
   opacity: 1 !important;
 }
 
-/* SVG Fill & Stroke Adjustments when inside text icons */
+/* SVG Fill Adjustments for icons */
 html[data-dark-vision="enabled"] svg:not([fill="none"]) {
   fill: currentColor;
 }

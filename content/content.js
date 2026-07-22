@@ -3,7 +3,7 @@
  */
 
 (function () {
-  'use me'
+  'use strict';
 
   // Prevent multiple injections
   if (window.__darkVisionInjected) return;
@@ -75,11 +75,16 @@
   init();
 
   function init() {
+    // Apply default config synchronously immediately to avoid white flash
+    applyConfig();
+
     ensureCSSInjected();
 
-    // Fetch initial configuration from sync storage
-    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
-      chrome.storage.sync.get(currentConfig, (stored) => {
+    // Fetch stored configuration from sync storage
+    const storageApi = (typeof chrome !== 'undefined' && chrome.storage) ? chrome.storage : (typeof browser !== 'undefined' ? browser.storage : null);
+    
+    if (storageApi && storageApi.sync) {
+      storageApi.sync.get(currentConfig, (stored) => {
         if (stored) {
           currentConfig = { ...currentConfig, ...stored };
         }
@@ -87,7 +92,7 @@
       });
 
       // Listen for configuration changes
-      chrome.storage.onChanged.addListener((changes, area) => {
+      storageApi.onChanged.addListener((changes, area) => {
         if (area === 'sync') {
           for (let key in changes) {
             currentConfig[key] = changes[key].newValue;
@@ -95,26 +100,29 @@
           applyConfig();
         }
       });
-    } else {
-      applyConfig();
     }
 
     // System theme change listener (for auto system sync)
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if (currentConfig.autoSystem) {
-        applyConfig();
-      }
-    });
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (currentConfig.autoSystem) {
+          applyConfig();
+        }
+      });
+    }
   }
 
   function ensureCSSInjected() {
     if (!document.getElementById(STYLESHEET_ID)) {
-      const link = document.createElement('link');
-      link.id = STYLESHEET_ID;
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = chrome.runtime.getURL('content/darkmode.css');
-      (document.head || document.documentElement).appendChild(link);
+      const runtimeApi = (typeof chrome !== 'undefined' && chrome.runtime) ? chrome.runtime : (typeof browser !== 'undefined' ? browser.runtime : null);
+      if (runtimeApi && runtimeApi.getURL) {
+        const link = document.createElement('link');
+        link.id = STYLESHEET_ID;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = runtimeApi.getURL('content/darkmode.css');
+        (document.head || document.documentElement).appendChild(link);
+      }
     }
   }
 
@@ -122,10 +130,9 @@
     const currentDomain = window.location.hostname;
     const isWhitelisted = currentConfig.whitelistedDomains && currentConfig.whitelistedDomains.includes(currentDomain);
 
-    // Check system preference if autoSystem is active
     let systemPrefersDark = true;
-    if (currentConfig.autoSystem) {
-      systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (currentConfig.autoSystem && window.matchMedia) {
+      systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
     const shouldEnable = currentConfig.enabled && !isWhitelisted && systemPrefersDark;
