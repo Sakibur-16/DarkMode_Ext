@@ -13,15 +13,33 @@ html[data-dark-vision="enabled"] body {
   transition: filter 0.15s ease, background-color 0.15s ease !important;
 }
 
-/* Force Dark Backgrounds on All Containers, Divisions, Sections & Tables */
-html[data-dark-vision="enabled"] :is(body, section, article, main, header, footer, nav, aside, div, table, tbody, tr, td, th, ul, ol, li, form, center, header, nav) {
+/* Universal Background Recolor for ALL Elements, Lists, ARIA Roles & Divisions */
+html[data-dark-vision="enabled"] :is(
+  body, section, article, main, header, footer, nav, aside, div,
+  table, tbody, thead, tfoot, tr, td, th, ul, ol, li, form, center,
+  [role="grid"], [role="gridcell"], [role="row"], [role="list"], [role="listitem"],
+  [role="treeitem"], [role="region"], [role="navigation"], [role="main"],
+  [class*="list"], [class*="List"], [class*="Item"], [class*="item"],
+  [class*="Row"], [class*="row"], [class*="Container"], [class*="container"],
+  [class*="wrapper"], [class*="Wrapper"], [class*="content"], [class*="Content"],
+  [class*="view"], [class*="View"], [class*="pane"], [class*="Pane"]
+) {
   background-color: var(--dv-bg-main, #121826) !important;
   color: var(--dv-text-main, #e2e8f0) !important;
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
+/* Force Override for Elements with Inline Styles */
+html[data-dark-vision="enabled"] [style*="background"] {
+  background-color: var(--dv-bg-main, #121826) !important;
+}
+
+html[data-dark-vision="enabled"] [style*="color"] {
+  color: var(--dv-text-main, #e2e8f0) !important;
+}
+
 /* Universal Text & Headings Recolor */
-html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i, small, dt, dd, summary) {
+html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i, small, dt, dd, summary, div, a) {
   color: var(--dv-text-main, #e2e8f0) !important;
 }
 
@@ -35,10 +53,15 @@ html[data-dark-vision="enabled"] a:visited {
   color: var(--dv-link-visited, #a78bfa) !important;
 }
 
-/* Cards, Modals, Popups, Dropdowns & Sidebars */
-html[data-dark-vision="enabled"] :is(.card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel, [role="dialog"], [role="menu"], [class*="card"], [class*="modal"], [class*="popup"], [class*="menu"], [class*="panel"], [class*="sidebar"], [class*="drawer"]) {
+/* Cards, Modals, Selected Items, Hover Items, Popups, Dropdowns & Sidebars */
+html[data-dark-vision="enabled"] :is(
+  .card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel,
+  [role="dialog"], [role="menu"], [role="option"][aria-selected="true"], [role="row"][aria-selected="true"],
+  [class*="card"], [class*="modal"], [class*="popup"], [class*="menu"], [class*="panel"], [class*="sidebar"], [class*="drawer"],
+  [class*="selected"], [class*="active"]
+) {
   background-color: var(--dv-bg-card, #1e293b) !important;
-  color: var(--dv-text-main, #e2e8f0) !important;
+  color: var(--dv-text-main, #f8fafc) !important;
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
@@ -57,6 +80,7 @@ html[data-dark-vision="enabled"] :is(input, textarea):focus {
 
 /* Media Protections - Ensure Images, Videos, Canvas & SVG are NOT ruined */
 html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, svg, picture, embed, object) {
+  background-color: transparent !important;
   filter: brightness(var(--dv-media-brightness, 95%)) contrast(var(--dv-media-contrast, 100%)) !important;
   opacity: 1 !important;
 }
