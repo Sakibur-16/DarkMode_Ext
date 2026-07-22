@@ -29,13 +29,13 @@ html[data-dark-vision="enabled"] :is(
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
-/* Force Override for Structural Elements with Inline Light Backgrounds */
-html[data-dark-vision="enabled"] div[style*="background: rgb(255"],
-html[data-dark-vision="enabled"] div[style*="background-color: rgb(255"],
-html[data-dark-vision="enabled"] div[style*="background: #fff"],
-html[data-dark-vision="enabled"] div[style*="background-color: #fff"],
-html[data-dark-vision="enabled"] td[style*="background"] {
-  background-color: var(--dv-bg-main, #121826) !important;
+/* PRESERVE BACKGROUND IMAGES, LOGOS & SPRITES (Wikipedia Globe, Brand Logos, Avatars) */
+html[data-dark-vision="enabled"] :is(
+  [style*="background-image"], [style*="background: url"], [style*="background:url"],
+  [class*="logo"], [class*="Logo"], [class*="sprite"], [class*="Sprite"],
+  [class*="featured"], [class*="brand"], [class*="avatar"]
+) {
+  background-color: transparent !important;
 }
 
 /* Universal Text Recolor */
@@ -128,7 +128,7 @@ html[data-dark-vision="enabled"] :is(
   opacity: 1 !important;
 }
 
-/* MEDIA & VIDEO STREAM SAFEGUARDS */
+/* MEDIA, IMAGES & VIDEO STREAM SAFEGUARDS */
 html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, picture, embed, object) {
   background-color: transparent !important;
   filter: brightness(var(--dv-media-brightness, 95%)) contrast(var(--dv-media-contrast, 100%)) !important;
