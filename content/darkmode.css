@@ -1,4 +1,4 @@
-/* Dark Vision Engine - High Performance Universal CSS */
+/* Dark Vision Engine - Universal High Performance CSS */
 
 :root[data-dark-vision="enabled"] {
   color-scheme: dark !important;
@@ -13,7 +13,7 @@ html[data-dark-vision="enabled"] body {
   transition: filter 0.15s ease, background-color 0.15s ease !important;
 }
 
-/* Universal Background Recolor for ALL Elements, Lists, ARIA Roles & Divisions */
+/* Universal Background Recolor for Page Structural Containers & Divisions */
 html[data-dark-vision="enabled"] :is(
   body, section, article, main, header, footer, nav, aside, div,
   table, tbody, thead, tfoot, tr, td, th, ul, ol, li, form, center,
@@ -29,23 +29,22 @@ html[data-dark-vision="enabled"] :is(
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
-/* Force Override for Elements with Inline Backgrounds/Colors */
-html[data-dark-vision="enabled"] [style*="background"] {
+/* Force Override for Structural Elements with Inline Light Backgrounds */
+html[data-dark-vision="enabled"] div[style*="background: rgb(255"],
+html[data-dark-vision="enabled"] div[style*="background-color: rgb(255"],
+html[data-dark-vision="enabled"] div[style*="background: #fff"],
+html[data-dark-vision="enabled"] div[style*="background-color: #fff"],
+html[data-dark-vision="enabled"] td[style*="background"] {
   background-color: var(--dv-bg-main, #121826) !important;
 }
 
-html[data-dark-vision="enabled"] [style*="color"] {
-  color: var(--dv-text-main, #e2e8f0) !important;
-}
-
-/* Universal Text & Headings Recolor */
-html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i, small, dt, dd, summary, div, a) {
+/* Universal Text Recolor */
+html[data-dark-vision="enabled"] :is(p, h1, h2, h3, h4, h5, h6, label, dt, dd, summary) {
   color: var(--dv-text-main, #e2e8f0) !important;
 }
 
 /* Links */
-html[data-dark-vision="enabled"] a,
-html[data-dark-vision="enabled"] a * {
+html[data-dark-vision="enabled"] a {
   color: var(--dv-link-color, #60a5fa) !important;
 }
 
@@ -53,7 +52,7 @@ html[data-dark-vision="enabled"] a:visited {
   color: var(--dv-link-visited, #a78bfa) !important;
 }
 
-/* Dropdowns, Context Menus, Tooltips, Popups & Callout Flyouts (Removes White Glow / Hue) */
+/* Dropdowns, Context Menus, Tooltips, Popups & Callout Flyouts (No White Glow) */
 html[data-dark-vision="enabled"] :is(
   .modal, .popup, .dropdown, .menu, .dialog, .flyout, [role="dialog"], [role="menu"], [role="listbox"], [role="tooltip"],
   [class*="popup"], [class*="dropdown"], [class*="menu"], [class*="flyout"], [class*="context"], [class*="Callout"], [class*="ContextualMenu"]
@@ -65,7 +64,7 @@ html[data-dark-vision="enabled"] :is(
   filter: none !important;
 }
 
-/* Seamless Inner Menu Items & Options (Fixes Patchy Background Blocks) */
+/* Seamless Inner Menu Items & Options */
 html[data-dark-vision="enabled"] :is(
   [role="menuitem"], [role="option"], .menu-item, [class*="menuItem"], [class*="MenuItem"], [class*="contextMenuItem"]
 ) {
@@ -85,7 +84,7 @@ html[data-dark-vision="enabled"] :is(
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* General Cards, Sidebars & Panels */
+/* Cards, Sidebars & Panels */
 html[data-dark-vision="enabled"] :is(
   .card, .box, .panel, [class*="card"], [class*="panel"], [class*="sidebar"], [class*="drawer"],
   [class*="selected"], [class*="active"]
@@ -95,8 +94,8 @@ html[data-dark-vision="enabled"] :is(
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
-/* Forms, Inputs, Buttons, Textareas */
-html[data-dark-vision="enabled"] :is(input, textarea, select, button) {
+/* Forms, Inputs, Textareas */
+html[data-dark-vision="enabled"] :is(input, textarea, select) {
   background-color: var(--dv-bg-input, #1e293b) !important;
   color: var(--dv-text-main, #f8fafc) !important;
   border: 1px solid var(--dv-border-color, rgba(255, 255, 255, 0.2)) !important;
@@ -108,16 +107,37 @@ html[data-dark-vision="enabled"] :is(input, textarea):focus {
   outline: 2px solid var(--dv-accent-glow, rgba(59, 130, 246, 0.4)) !important;
 }
 
-/* Media Protections - Ensure Images, Videos, Canvas & SVG are NOT ruined */
-html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, svg, picture, embed, object) {
+/* BUTTONS & CONTROL BAR ICONS (Google Meet, Zoom, Teams, Media Controls) */
+html[data-dark-vision="enabled"] :is(button, [role="button"]) {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff !important;
+}
+
+html[data-dark-vision="enabled"] :is(button, [role="button"]) :is(span, i, div, svg, path) {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+/* ICON SAFEGUARDS (Material Icons, Google Symbols, FontAwesome, SVG Icons) */
+html[data-dark-vision="enabled"] :is(
+  .material-icons, .material-icons-outlined, .material-icons-extended, .material-symbols-outlined,
+  .google-material-icons, [class*="icon"], [class*="Icon"], [data-icon-type]
+) {
+  color: #ffffff !important;
+  fill: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* MEDIA & VIDEO STREAM SAFEGUARDS */
+html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, picture, embed, object) {
   background-color: transparent !important;
   filter: brightness(var(--dv-media-brightness, 95%)) contrast(var(--dv-media-contrast, 100%)) !important;
   opacity: 1 !important;
 }
 
-/* SVG Fill Adjustments for icons */
-html[data-dark-vision="enabled"] svg:not([fill="none"]) {
-  fill: currentColor;
+/* SVG Base Safeguard */
+html[data-dark-vision="enabled"] svg {
+  background-color: transparent !important;
 }
 
 /* Code Blocks & Pre tags */
@@ -127,7 +147,7 @@ html[data-dark-vision="enabled"] :is(pre, code, kbd, samp) {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Scrollbar Customization */
+/* Scrollbars */
 html[data-dark-vision="enabled"]::-webkit-scrollbar,
 html[data-dark-vision="enabled"] *::-webkit-scrollbar {
   width: 10px;
