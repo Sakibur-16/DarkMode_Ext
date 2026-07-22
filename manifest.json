@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "description": "Smart, customizable universal dark mode for all websites with theme presets, fine-tuning sliders, and site whitelisting.",
   "author": "Personal Project",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "darkvision@extension.local"
+    }
+  },
   "permissions": [
     "storage",
     "activeTab",
