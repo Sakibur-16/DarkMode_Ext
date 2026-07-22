@@ -55,7 +55,7 @@ Follow these steps to load the unpacked extension in your browser:
 
 1. **Clone or Download** this repository to your computer:
    ```bash
-   git clone https://github.com/your-username/dark-vision-extension.git
+   git clone https://github.com/Sakibur-16/DarkMode_Ext.git
    ```
 2. Open your browser and navigate to the Extensions page:
    - **Chrome**: `chrome://extensions`
@@ -96,7 +96,7 @@ This project demonstrates core modern browser extension development patterns:
 2. Create a new public repository on GitHub named `dark-vision-extension`.
 3. Link and push your code to GitHub:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/dark-vision-extension.git
+   git remote add origin https://github.com/Sakibur-16/DarkMode_Ext.git
    git branch -M main
    git push -u origin main
    ```
