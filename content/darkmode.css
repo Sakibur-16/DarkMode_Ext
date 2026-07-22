@@ -1,0 +1,110 @@
+/* Dark Vision Engine - High Performance Universal CSS */
+
+:root[data-dark-vision="enabled"] {
+  color-scheme: dark !important;
+}
+
+/* Base Root Darkening */
+html[data-dark-vision="enabled"] {
+  background-color: var(--dv-bg-main, #121826) !important;
+  color: var(--dv-text-main, #e2e8f0) !important;
+  filter: brightness(var(--dv-brightness, 100%)) contrast(var(--dv-contrast, 100%)) sepia(var(--dv-sepia, 0%)) !important;
+  transition: filter 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* Universal Page Elements */
+html[data-dark-vision="enabled"] body,
+html[data-dark-vision="enabled"] div,
+html[data-dark-vision="enabled"] section,
+html[data-dark-vision="enabled"] article,
+html[data-dark-vision="enabled"] main,
+html[data-dark-vision="enabled"] header,
+html[data-dark-vision="enabled"] footer,
+html[data-dark-vision="enabled"] nav,
+html[data-dark-vision="enabled"] aside {
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Default Background Overrides for Solid Light Containers */
+html[data-dark-vision="enabled"] :is(body, section, article, main, header, footer, nav, aside, div, table, tr, td, th, ul, ol, li) {
+  border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
+}
+
+/* Text and Links */
+html[data-dark-vision="enabled"] :is(p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, strong, em, b, i) {
+  color: var(--dv-text-main, #e2e8f0) !important;
+}
+
+html[data-dark-vision="enabled"] a {
+  color: var(--dv-link-color, #60a5fa) !important;
+}
+
+html[data-dark-vision="enabled"] a:visited {
+  color: var(--dv-link-visited, #a78bfa) !important;
+}
+
+/* Cards, Modals, Popups, and Containers */
+html[data-dark-vision="enabled"] :is(.card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel, [role="dialog"], [role="menu"]) {
+  background-color: var(--dv-bg-card, #1e293b) !important;
+  color: var(--dv-text-main, #e2e8f0) !important;
+  border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
+}
+
+/* Forms, Inputs, Buttons, Textareas */
+html[data-dark-vision="enabled"] :is(input, textarea, select, button) {
+  background-color: var(--dv-bg-input, #1e293b) !important;
+  color: var(--dv-text-main, #f8fafc) !important;
+  border: 1px solid var(--dv-border-color, rgba(255, 255, 255, 0.2)) !important;
+  box-shadow: none !important;
+}
+
+html[data-dark-vision="enabled"] :is(input, textarea):focus {
+  border-color: var(--dv-accent-color, #3b82f6) !important;
+  outline: 2px solid var(--dv-accent-glow, rgba(59, 130, 246, 0.4)) !important;
+}
+
+html[data-dark-vision="enabled"] button {
+  cursor: pointer;
+}
+
+/* Media Protections - Ensure Images, Videos, Canvas & SVG are NOT ruined */
+html[data-dark-vision="enabled"] :is(img, video, iframe, canvas, svg, picture, embed, object) {
+  filter: brightness(var(--dv-media-brightness, 95%)) contrast(var(--dv-media-contrast, 100%)) !important;
+  opacity: 1 !important;
+}
+
+/* SVG Fill & Stroke Adjustments when inside text icons */
+html[data-dark-vision="enabled"] svg:not([fill="none"]) {
+  fill: currentColor;
+}
+
+/* Code Blocks & Pre tags */
+html[data-dark-vision="enabled"] :is(pre, code, kbd, samp) {
+  background-color: var(--dv-bg-code, #0f172a) !important;
+  color: var(--dv-text-code, #38bdf8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Scrollbar Customization */
+html[data-dark-vision="enabled"]::-webkit-scrollbar,
+html[data-dark-vision="enabled"] *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html[data-dark-vision="enabled"]::-webkit-scrollbar-track,
+html[data-dark-vision="enabled"] *::-webkit-scrollbar-track {
+  background: var(--dv-bg-main, #121826);
+}
+
+html[data-dark-vision="enabled"]::-webkit-scrollbar-thumb,
+html[data-dark-vision="enabled"] *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+html[data-dark-vision="enabled"]::-webkit-scrollbar-thumb:hover,
+html[data-dark-vision="enabled"] *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
