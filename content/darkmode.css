@@ -29,7 +29,7 @@ html[data-dark-vision="enabled"] :is(
   border-color: var(--dv-border-color, rgba(255, 255, 255, 0.12)) !important;
 }
 
-/* Force Override for Elements with Inline Styles */
+/* Force Override for Elements with Inline Backgrounds/Colors */
 html[data-dark-vision="enabled"] [style*="background"] {
   background-color: var(--dv-bg-main, #121826) !important;
 }
@@ -53,11 +53,41 @@ html[data-dark-vision="enabled"] a:visited {
   color: var(--dv-link-visited, #a78bfa) !important;
 }
 
-/* Cards, Modals, Selected Items, Hover Items, Popups, Dropdowns & Sidebars */
+/* Dropdowns, Context Menus, Tooltips, Popups & Callout Flyouts (Removes White Glow / Hue) */
 html[data-dark-vision="enabled"] :is(
-  .card, .modal, .popup, .dropdown, .menu, .dialog, .box, .panel,
-  [role="dialog"], [role="menu"], [role="option"][aria-selected="true"], [role="row"][aria-selected="true"],
-  [class*="card"], [class*="modal"], [class*="popup"], [class*="menu"], [class*="panel"], [class*="sidebar"], [class*="drawer"],
+  .modal, .popup, .dropdown, .menu, .dialog, .flyout, [role="dialog"], [role="menu"], [role="listbox"], [role="tooltip"],
+  [class*="popup"], [class*="dropdown"], [class*="menu"], [class*="flyout"], [class*="context"], [class*="Callout"], [class*="ContextualMenu"]
+) {
+  background-color: var(--dv-bg-card, #1e293b) !important;
+  color: var(--dv-text-main, #f8fafc) !important;
+  border: 1px solid var(--dv-border-color, rgba(255, 255, 255, 0.15)) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+  filter: none !important;
+}
+
+/* Seamless Inner Menu Items & Options (Fixes Patchy Background Blocks) */
+html[data-dark-vision="enabled"] :is(
+  [role="menuitem"], [role="option"], .menu-item, [class*="menuItem"], [class*="MenuItem"], [class*="contextMenuItem"]
+) {
+  background-color: transparent !important;
+}
+
+html[data-dark-vision="enabled"] :is(
+  [role="menuitem"], [role="option"], .menu-item, [class*="menuItem"], [class*="MenuItem"], [class*="contextMenuItem"]
+) :is(span, div, p, a, label) {
+  background-color: transparent !important;
+  color: var(--dv-text-main, #f8fafc) !important;
+}
+
+html[data-dark-vision="enabled"] :is(
+  [role="menuitem"]:hover, [role="option"]:hover, .menu-item:hover, [class*="menuItem"]:hover, [class*="MenuItem"]:hover
+) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* General Cards, Sidebars & Panels */
+html[data-dark-vision="enabled"] :is(
+  .card, .box, .panel, [class*="card"], [class*="panel"], [class*="sidebar"], [class*="drawer"],
   [class*="selected"], [class*="active"]
 ) {
   background-color: var(--dv-bg-card, #1e293b) !important;
